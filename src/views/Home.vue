@@ -18,9 +18,13 @@ export default {
   </div>
 </template>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   .img-container {
     max-width: 400px;
     background-color: black;
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
   }
 </style>
