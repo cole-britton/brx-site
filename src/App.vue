@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -14,7 +14,28 @@
 
 html {
   background-color: black;
-  font-family: Andale Mono, Source Sans Pro, -apple-system, BlinkMacSystemFont,
-    Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+  height: 100%;
 }
+
+body {
+    margin: 0px;
+    min-height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: Andale Mono, Source Sans Pro, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    font-size: 12px;
+}
+
+a {
+  color: white;
+  &:hover {
+    color: wheat;
+  }
+}
+
+
 </style>
