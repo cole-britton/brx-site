@@ -4,7 +4,7 @@ export default {
   name: 'home',
   data() {
     return {
-      categories: ['VIDEO', 'PROJECTS', 'TALK TO ME'],
+      categories: ['VIDEO', 'PROJECTS'],
     };
   },
 };
@@ -16,12 +16,12 @@ export default {
     <div class="img-container">
       <img alt="My logo" src="../assets/brxttxn-trash-smaller-canvas.png" />
     </div>
-    <div>
-      <button v-for="c in categories" :key="c">{{c}}</button>
+    <div class="text-button-container">
+      <button class="text-button" v-for="c in categories" :key="c">{{c}}</button>
     </div>
     <!-- <div class="video">
         <img alt="video" src="../assets/hawaii_brx_gif.gif" />
-    </div> -->
+    </div>-->
     <div class="footer-container">
       <div class="the-footer">
         <div>
@@ -44,6 +44,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@import "../utilities/_variables.scss";
 .home {
   .img-container {
     max-width: 400px;
@@ -52,21 +53,32 @@ export default {
       width: 100%;
     }
   }
-  button {
-    font-size: 32px;
-    background-color: transparent;
-    color: white;
-    &:hover {
-      color: wheat;
-      cursor: pointer;
+  .text-button-container {
+    display: flex;
+    padding: 0 22px;
+    button {
+      padding-right:50px;
+      display: block;
+      font-size: 32px;
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+      margin-right: 16px;
+      &:hover {
+        color: blue;
+        cursor: pointer;
+        border: 2px solid blue;
+      }
     }
   }
   .footer-container {
     position: absolute;
     bottom: 0;
     width: 100%;
-    color: white;
+    color: $white;
     overflow: hidden;
+
+    min-width: 320px;
     .the-footer {
       display: flex;
       justify-content: space-between;
@@ -80,16 +92,21 @@ export default {
       }
     }
     .trinket {
-    position: absolute;
-    bottom: -25px;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
+      position: absolute;
+      bottom: -25px;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
       img {
         width: 200px;
       }
     }
+  }
+}
+@media only screen and (max-width: 900px) {
+  .trinket {
+    display: none;
   }
 }
 </style>
