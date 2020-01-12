@@ -19,6 +19,9 @@ export default {
     <div>
       <button v-for="c in categories" :key="c">{{c}}</button>
     </div>
+    <!-- <div class="video">
+        <img alt="video" src="../assets/hawaii_brx_gif.gif" />
+    </div> -->
     <div class="footer-container">
       <div class="the-footer">
         <div>
@@ -32,6 +35,9 @@ export default {
             <font-awesome-icon :icon="['fab', 'youtube-square']" />
           </a>
         </div>
+      </div>
+      <div class="trinket">
+        <img alt="palette" src="../assets/palette-trash.png" />
       </div>
     </div>
   </div>
@@ -60,10 +66,8 @@ export default {
     bottom: 0;
     width: 100%;
     color: white;
-    background-color: aqua;
+    overflow: hidden;
     .the-footer {
-      background-color: aqua;
-      border: 2px solid orange;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -73,6 +77,17 @@ export default {
         a {
           margin: 0 5px;
         }
+      }
+    }
+    .trinket {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+      img {
+        width: 200px;
       }
     }
   }
