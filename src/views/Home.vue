@@ -39,13 +39,12 @@ export default {
       <button class="text-button" v-for="c in categories" :key="c">{{c}}</button>
     </div>
     <div class="videos-container">
-      <div class="videoWrapper" v-for="v in videoData" v-bind:key="v.title">
+      <div class="video-wrapper" v-for="v in videoData" v-bind:key="v.title">
         <iframe
-          :src=v.link
-          frameborder="0"
-          allow="autoplay; encrypted-media"
-          allowfullscreen
-        ></iframe>
+        :src="v.link"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
       </div>
     </div>
     <div class="footer-container">
@@ -72,6 +71,14 @@ export default {
 <style lang="scss" scoped>
 @import "../utilities/_variables.scss";
 .home {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   .img-container {
     max-width: 400px;
     img {
@@ -98,21 +105,15 @@ export default {
     }
   }
   .videos-container {
-    padding: 40px 0;
     display: flex;
     justify-content: space-around;
-  }
-  .video-wrapper {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
-    padding-top: 25px;
-    height: 0;
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 67px;
+    margin-top: 20px;
+    .video-wrapper {
+      margin: 10px 5px;
     }
   }
   .footer-container {
