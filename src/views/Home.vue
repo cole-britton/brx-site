@@ -5,6 +5,25 @@ export default {
   data() {
     return {
       categories: ['VIDEO', 'PROJECTS'],
+      selectedCategory: 1,
+      videoData: [
+        {
+          title: 'Canon',
+          link: 'https://www.youtube.com/embed/GvP_-LXQDUk?controls=0',
+        },
+        {
+          title: 'Siclia',
+          link: 'https://www.youtube.com/embed/MBLN7JN6l88?controls=0',
+        },
+        {
+          title: 'OAHU - 2019',
+          link: 'https://www.youtube.com/embed/LC8sh12OrsQ?controls=0',
+        },
+        {
+          title: 'chelon',
+          link: 'https://www.youtube.com/embed/xQ8lXugtNpY?controls=0',
+        },
+      ],
     };
   },
 };
@@ -19,9 +38,16 @@ export default {
     <div class="text-button-container">
       <button class="text-button" v-for="c in categories" :key="c">{{c}}</button>
     </div>
-    <!-- <div class="video">
-        <img alt="video" src="../assets/hawaii_brx_gif.gif" />
-    </div>-->
+    <div class="videos-container">
+      <div class="videoWrapper" v-for="v in videoData" v-bind:key="v.title">
+        <iframe
+          :src=v.link
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
     <div class="footer-container">
       <div class="the-footer">
         <div>
@@ -57,7 +83,7 @@ export default {
     display: flex;
     padding: 0 22px;
     button {
-      padding-right:50px;
+      padding-right: 50px;
       display: block;
       font-size: 32px;
       background-color: transparent;
@@ -69,6 +95,24 @@ export default {
         cursor: pointer;
         border: 2px solid blue;
       }
+    }
+  }
+  .videos-container {
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-around;
+  }
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
   }
   .footer-container {
