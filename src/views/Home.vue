@@ -4,7 +4,10 @@ export default {
   name: 'home',
   data() {
     return {
-      categories: ['VIDEO', 'PROJECTS'],
+      categories: [
+        { label: 'VIDEO', id: 1 },
+        { label: 'PROJECTS', id: 2 },
+      ],
       selectedCategory: 1,
       videoData: [
         {
@@ -23,6 +26,22 @@ export default {
           title: 'chelon',
           link: 'https://www.youtube.com/embed/xQ8lXugtNpY?controls=0',
         },
+        {
+          title: 'Dom & Grace',
+          link: 'https://www.youtube.com/embed/uWuvXJKn4jg?controls=0',
+        },
+        {
+          title: 'OAHU - 2018',
+          link: 'https://www.youtube.com/embed/XQPee8foF9M?controls=0',
+        },
+        {
+          title: 'The Getty',
+          link: 'https://www.youtube.com/embed/fvIQTA0xVs4?controls=0',
+        },
+        {
+          title: 'American Pomade',
+          link: 'https://www.youtube.com/embed/IoH2gp9KHlM?controls=0',
+        },
       ],
     };
   },
@@ -36,20 +55,31 @@ export default {
       <img alt="My logo" src="../assets/brxttxn-trash-smaller-canvas.png" />
     </div>
     <div class="text-button-container">
-      <button class="text-button" v-for="c in categories" :key="c">{{c}}</button>
+      <button
+      class="text-button"
+      v-for="c in categories"
+      v-on:click = "selectedCategory = c.id"
+      :key="c.id">{{c.label}}</button>
     </div>
-    <div class="videos-container">
+    <div v-if="selectedCategory === 1" class="videos-container">
       <div class="video-wrapper" v-for="v in videoData" v-bind:key="v.title">
-        <iframe
-        :src="v.link"
+        <iframe :src="v.link"
         frameborder="0"
         allow="autoplay; encrypted-media"
         allowfullscreen></iframe>
       </div>
     </div>
+    <div v-if="selectedCategory === 2" class="projects-container">
+      <div>
+        Bachelor No More
+      </div>
+      <div>
+        New View
+      </div>
+    </div>
     <div class="footer-container">
       <div class="the-footer">
-        <div>
+        <div class="footer-site-tag">
           <a href="http://www.brxttxn.com">Brxttxn</a>, Copyright &copy; 2020
         </div>
         <div class="footer-links">
@@ -116,6 +146,15 @@ export default {
       margin: 10px 5px;
     }
   }
+  .projects-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 67px;
+    margin-top: 20px;
+  }
   .footer-container {
     position: absolute;
     bottom: 0;
@@ -130,10 +169,14 @@ export default {
       align-items: center;
       padding: 20px;
       .footer-links {
+        z-index: 1;
         font-size: 24px;
         a {
           margin: 0 5px;
         }
+      }
+      .footer-site-tag {
+        z-index: 1;
       }
     }
     .trinket {
@@ -141,12 +184,17 @@ export default {
       bottom: -25px;
       left: 0;
       right: 0;
-      margin-left: auto;
-      margin-right: auto;
+      z-index: 0;
       img {
         width: 200px;
       }
     }
+  }
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  ::-webkit-scrollbar-track-piece {
+    background-color: transparent;
   }
 }
 @media only screen and (max-width: 900px) {
