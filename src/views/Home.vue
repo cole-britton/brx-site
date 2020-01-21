@@ -67,6 +67,7 @@ export default {
       class="text-button"
       v-for="c in categories"
       v-on:click = "selectedCategory = c.id"
+      :class="{ selected: selectedCategory === c.id }"
       :key="c.id">{{c.label}}</button>
     </div>
     <div v-if="selectedCategory === 1" class="videos-container">
@@ -80,6 +81,9 @@ export default {
     </div>
     <div v-if="selectedCategory === 2" class="projects-container">
       <div>
+        <div>
+          <!-- <img alt="BNM" src="../assets/bnm.PNG" /> -->
+        </div>
         Bachelor No More
       </div>
       <div>
@@ -135,9 +139,13 @@ export default {
       border: 2px solid white;
       margin-right: 16px;
       &:hover {
-        color: blue;
+        color: wheat;
         cursor: pointer;
-        border: 2px solid blue;
+        border: 2px solid wheat;
+      }
+      &.selected {
+        border-left: 10px solid white;
+        pointer-events:none;
       }
     }
   }
@@ -193,6 +201,7 @@ export default {
     .trinket {
       position: absolute;
       bottom: -25px;
+      text-align: center;
       left: 0;
       right: 0;
       z-index: 0;
