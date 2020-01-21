@@ -11,35 +11,43 @@ export default {
       selectedCategory: 1,
       videoData: [
         {
-          title: 'Canon',
-          link: 'https://www.youtube.com/embed/GvP_-LXQDUk?controls=0',
-        },
-        {
           title: 'Siclia',
+          year: '2019',
           link: 'https://www.youtube.com/embed/MBLN7JN6l88?controls=0',
         },
         {
-          title: 'OAHU - 2019',
+          title: 'OAHU',
+          year: '2019',
           link: 'https://www.youtube.com/embed/LC8sh12OrsQ?controls=0',
         },
         {
           title: 'chelon',
+          year: '2019',
           link: 'https://www.youtube.com/embed/xQ8lXugtNpY?controls=0',
         },
         {
+          title: 'Canon',
+          year: '2018',
+          link: 'https://www.youtube.com/embed/GvP_-LXQDUk?controls=0',
+        },
+        {
           title: 'Dom & Grace',
+          year: '2018',
           link: 'https://www.youtube.com/embed/uWuvXJKn4jg?controls=0',
         },
         {
-          title: 'OAHU - 2018',
+          title: 'OAHU',
+          year: '2018',
           link: 'https://www.youtube.com/embed/XQPee8foF9M?controls=0',
         },
         {
           title: 'The Getty',
+          year: '2017',
           link: 'https://www.youtube.com/embed/fvIQTA0xVs4?controls=0',
         },
         {
           title: 'American Pomade',
+          year: '2017',
           link: 'https://www.youtube.com/embed/IoH2gp9KHlM?controls=0',
         },
       ],
@@ -67,6 +75,7 @@ export default {
         frameborder="0"
         allow="autoplay; encrypted-media"
         allowfullscreen></iframe>
+        <div class="video-data"><p>{{v.title}}</p><p>{{v.year}}</p></div>
       </div>
     </div>
     <div v-if="selectedCategory === 2" class="projects-container">
@@ -120,9 +129,7 @@ export default {
     display: flex;
     padding: 0 22px;
     button {
-      padding-right: 50px;
       display: block;
-      font-size: 32px;
       background-color: transparent;
       color: white;
       border: 2px solid white;
@@ -136,14 +143,18 @@ export default {
   }
   .videos-container {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
-    overflow-y: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     margin-bottom: 67px;
     margin-top: 20px;
     .video-wrapper {
-      margin: 10px 5px;
+      margin: 10px;
+    }
+    .video-data {
+      display: flex;
+      justify-content: space-between;
     }
   }
   .projects-container {
@@ -201,5 +212,34 @@ export default {
   .trinket {
     display: none;
   }
+  .videos-container {
+    justify-content: space-around;
+  }
 }
+
+@media only screen and (min-width: 900px) {
+  .videos-container {
+    justify-content: flex-start;
+    padding: 0 17px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .text-button-container {
+    button {
+      font-size: 20px;
+      padding-right: 30px;
+    }
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  .text-button-container {
+    button {
+      font-size: 32px;
+      padding-right: 50px;
+    }
+  }
+}
+
 </style>
