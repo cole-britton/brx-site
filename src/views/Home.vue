@@ -51,7 +51,19 @@ export default {
           link: 'https://www.youtube.com/embed/IoH2gp9KHlM?controls=0',
         },
       ],
+      showComingSoon: false,
     };
+  },
+  methods: {
+    goTo(page) {
+      switch (page) {
+        case 'nv':
+          window.open('http://livenewview.com/', '_blank');
+          break;
+        default:
+          this.showComingSoon = true;
+      }
+    },
   },
 };
 </script>
@@ -64,30 +76,33 @@ export default {
     </div>
     <div class="text-button-container">
       <button
-      class="text-button"
-      v-for="c in categories"
-      v-on:click = "selectedCategory = c.id"
-      :class="{ selected: selectedCategory === c.id }"
-      :key="c.id">{{c.label}}</button>
+        class="text-button"
+        v-for="c in categories"
+        v-on:click="selectedCategory = c.id"
+        :class="{ selected: selectedCategory === c.id }"
+        :key="c.id"
+      >{{c.label}}</button>
     </div>
     <div v-if="selectedCategory === 1" class="videos-container">
       <div class="video-wrapper" v-for="v in videoData" v-bind:key="v.title">
-        <iframe :src="v.link"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen></iframe>
-        <div class="video-data"><p>{{v.title}}</p><p>{{v.year}}</p></div>
+        <iframe :src="v.link" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+        <div class="video-data">
+          <p>{{v.title}}</p>
+          <p>{{v.year}}</p>
+        </div>
       </div>
     </div>
     <div v-if="selectedCategory === 2" class="projects-container">
       <div>
-        <div>
-          <!-- <img alt="BNM" src="../assets/bnm.PNG" /> -->
-        </div>
-        Bachelor No More
+        <div class="img-container" @click="goTo('bnm')">
+          <img alt="BNM" src="../assets/bnm_logo.png" />
+          <div v-if="showComingSoon" class="cs">COMING SOON</div>
+        </div>Bachelor No More
       </div>
       <div>
-        New View
+        <div class="img-container" @click="goTo('nv')">
+          <img alt="NV" src="../assets/MASTER_logo.png" />
+        </div>New View
       </div>
     </div>
     <div class="footer-container">
@@ -145,7 +160,7 @@ export default {
       }
       &.selected {
         border-left: 10px solid white;
-        pointer-events:none;
+        pointer-events: none;
       }
     }
   }
@@ -173,6 +188,22 @@ export default {
     overflow-x: hidden;
     margin-bottom: 67px;
     margin-top: 20px;
+    .img-container {
+      display: table-cell;
+      height: 400px;
+      vertical-align: middle;
+      text-align: center;
+      position: relative;
+      &:hover {
+        opacity: 0.6;
+        cursor: pointer;
+      }
+      .cs {
+        position: absolute;
+        top: 193px;
+        left: 160px;
+      }
+    }
   }
   .footer-container {
     position: absolute;
@@ -250,5 +281,4 @@ export default {
     }
   }
 }
-
 </style>
