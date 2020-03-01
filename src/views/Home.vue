@@ -7,49 +7,72 @@ export default {
       categories: [
         { label: 'VIDEO', id: 1 },
         { label: 'PROJECTS', id: 2 },
+        { label: 'MUSIC', id: 3 },
       ],
       selectedCategory: 1,
       videoData: [
         {
+          id: 1,
           title: 'Siclia',
           year: '2019',
           link: 'https://www.youtube.com/embed/MBLN7JN6l88?controls=0',
         },
         {
+          id: 2,
           title: 'OAHU',
           year: '2019',
           link: 'https://www.youtube.com/embed/LC8sh12OrsQ?controls=0',
         },
         {
+          id: 3,
           title: 'chelon',
           year: '2019',
           link: 'https://www.youtube.com/embed/xQ8lXugtNpY?controls=0',
         },
         {
+          id: 4,
           title: 'Canon',
           year: '2018',
           link: 'https://www.youtube.com/embed/GvP_-LXQDUk?controls=0',
         },
         {
+          id: 5,
           title: 'Dom & Grace',
           year: '2018',
           link: 'https://www.youtube.com/embed/uWuvXJKn4jg?controls=0',
         },
         {
+          id: 6,
           title: 'OAHU',
           year: '2018',
           link: 'https://www.youtube.com/embed/XQPee8foF9M?controls=0',
         },
         {
+          id: 7,
           title: 'The Getty',
           year: '2017',
           link: 'https://www.youtube.com/embed/fvIQTA0xVs4?controls=0',
         },
         {
+          id: 8,
           title: 'American Pomade',
           year: '2017',
           link: 'https://www.youtube.com/embed/IoH2gp9KHlM?controls=0',
         },
+      ],
+      playlists: [
+        '2EFQpqHJ8WIx3Y5ydzItYq',
+        '7rz2d4a7fsZsTmuLYIPRC6',
+        '3E3FmE6Nu06NVA2ZZZpB1j',
+        '2wcKGdSFA2cYLF32s6dfjT',
+        '5andCY8hDKZMRmTIdLXOLt',
+        '5cOc0Yrz7deCtjJAbTvDzh',
+        '1ku9o6HZoED8LsKUCPmbIG',
+        '4r8WdrguOBazDVNFIy9MEa',
+        '00InlwyS3pmL47qBb0Zl8d',
+        '2gNpldsewDMGAwR5R2fpx8',
+        '68PBivmc5Lvb5VGIAfbMqn',
+        '6FfPBWgd0RMOHbrl5E29Q8',
       ],
       showComingSoon: false,
     };
@@ -84,7 +107,7 @@ export default {
       >{{c.label}}</button>
     </div>
     <div v-if="selectedCategory === 1" class="videos-container">
-      <div class="video-wrapper" v-for="v in videoData" v-bind:key="v.title">
+      <div class="video-wrapper" v-for="v in videoData" :key="v.id">
         <iframe :src="v.link" frameborder="0" allow="autoplay; encrypted-media"></iframe>
         <div class="video-data">
           <p>{{v.title}}</p>
@@ -97,12 +120,26 @@ export default {
         <div class="img-container" @click="goTo('bnm')">
           <img alt="BNM" src="../assets/bnm_logo.png" />
           <div v-if="showComingSoon" class="cs">COMING SOON</div>
-        </div>Bachelor No More
+        </div>
+        <p>Bachelor No More</p>
       </div>
       <div>
-        <div class="img-container" @click="goTo('nv')">
+        <div class="img-container nv" @click="goTo('nv')">
           <img alt="NV" src="../assets/MASTER_logo.png" />
-        </div>New View
+        </div>
+        <p>New View</p>
+      </div>
+    </div>
+    <div v-if="selectedCategory === 3" class="music-container">
+      <div v-for="p in playlists" :key="p" class="playlist-container">
+        <iframe
+          :src="`https://open.spotify.com/embed/playlist/${p}`"
+          width="300"
+          height="380"
+          frameborder="0"
+          allowtransparency="true"
+          allow="encrypted-media"
+        ></iframe>
       </div>
     </div>
     <div class="footer-container">
@@ -159,7 +196,9 @@ export default {
         border: 2px solid wheat;
       }
       &.selected {
-        border-left: 10px solid white;
+        color: wheat;
+        border: 2px solid wheat;
+        border-left: 10px solid wheat;
         pointer-events: none;
       }
     }
@@ -188,6 +227,7 @@ export default {
     overflow-x: hidden;
     margin-bottom: 67px;
     margin-top: 20px;
+    padding: 0 20px;
     .img-container {
       display: table-cell;
       height: 400px;
@@ -195,14 +235,27 @@ export default {
       text-align: center;
       position: relative;
       &:hover {
-        opacity: 0.6;
+        opacity: 0.8;
         cursor: pointer;
       }
       .cs {
         position: absolute;
-        top: 193px;
-        left: 160px;
+        width: 100%;
+        top: calc(50% - 7px);
+        text-align: center;
       }
+    }
+  }
+  .music-container {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 67px;
+    margin-top: 20px;
+    padding: 0 20px;
+    .playlist-container {
+      margin: 10px 20px;
     }
   }
   .footer-container {
@@ -279,6 +332,13 @@ export default {
       font-size: 32px;
       padding-right: 50px;
     }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .img-container.nv {
+    background-color: white;
+    padding: 0 40px;
   }
 }
 </style>
