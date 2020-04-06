@@ -94,7 +94,7 @@ export default {
 
 <template>
   <div class="home">
-    <div class="img-container">
+    <div class="logo-container">
       <img alt="My logo" src="../assets/brxttxn-trash-smaller-canvas.png" />
     </div>
     <div class="text-button-container">
@@ -167,13 +167,16 @@ export default {
 @import "../utilities/_variables.scss";
 .home {
   overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
+  .logo-container {
+    max-width: 400px;
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
+  }
   .img-container {
     max-width: 400px;
     img {
@@ -314,24 +317,6 @@ export default {
   .videos-container {
     justify-content: flex-start;
     padding: 0 17px;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .text-button-container {
-    button {
-      font-size: 20px;
-      padding-right: 30px;
-    }
-  }
-}
-
-@media only screen and (min-width: 450px) {
-  .text-button-container {
-    button {
-      font-size: 32px;
-      padding-right: 50px;
-    }
   }
 }
 

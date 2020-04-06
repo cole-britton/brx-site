@@ -42,26 +42,12 @@ a {
   body {
     background-color: $alt1;
   }
-  .icon-button-container {
-    display: block;
-    font-size: 50px;
-    color: $white;
-  }
-  .text-button-container {
-    display: none;
-  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
   body {
     background-color: $alt2;
-  }
-  .icon-button-container {
-    display: none;
-  }
-  .text-button-container {
-    display: flex;
   }
 }
 
