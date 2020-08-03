@@ -21,7 +21,7 @@ body {
   margin: 0px;
   min-height: 100%;
   padding: 0;
-  overflow-x: hidden;
+  overflow: hidden;
   font-family: Andale Mono, Source Sans Pro, -apple-system, BlinkMacSystemFont,
     Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
   font-weight: normal;

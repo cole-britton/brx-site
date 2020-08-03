@@ -7,10 +7,15 @@ export default {
       categories: [
         { label: 'VIDEO', id: 1 },
         { label: 'PROJECTS', id: 2 },
-        { label: 'MUSIC', id: 3 },
       ],
       selectedCategory: 1,
       videoData: [
+        {
+          id: 10,
+          title: 'Andrew & Jessica',
+          year: '2020',
+          link: 'https://www.youtube.com/embed/_Pt_b3EHTYU?controls=0',
+        },
         {
           id: 1,
           title: 'Siclia',
@@ -60,20 +65,6 @@ export default {
           link: 'https://www.youtube.com/embed/IoH2gp9KHlM?controls=0',
         },
       ],
-      playlists: [
-        '2EFQpqHJ8WIx3Y5ydzItYq',
-        '7rz2d4a7fsZsTmuLYIPRC6',
-        '3E3FmE6Nu06NVA2ZZZpB1j',
-        '2wcKGdSFA2cYLF32s6dfjT',
-        '5andCY8hDKZMRmTIdLXOLt',
-        '5cOc0Yrz7deCtjJAbTvDzh',
-        '1ku9o6HZoED8LsKUCPmbIG',
-        '4r8WdrguOBazDVNFIy9MEa',
-        '00InlwyS3pmL47qBb0Zl8d',
-        '2gNpldsewDMGAwR5R2fpx8',
-        '68PBivmc5Lvb5VGIAfbMqn',
-        '6FfPBWgd0RMOHbrl5E29Q8',
-      ],
       showComingSoon: false,
     };
   },
@@ -82,6 +73,9 @@ export default {
       switch (page) {
         case 'nv':
           window.open('http://livenewview.com/', '_blank');
+          break;
+        case 'sp':
+          window.open('https://open.spotify.com/user/ka0ii7l1uwig1da7cx19mtyop?si=Nb19sgSyS8-guR6d5aWW1g', '_blank');
           break;
         default:
           this.showComingSoon = true;
@@ -94,60 +88,55 @@ export default {
 
 <template>
   <div class="home">
-    <div class="logo-container">
-      <img alt="My logo" src="../assets/brxttxn-trash-smaller-canvas.png" />
+    <div class="header">
+      <div class="logo-container">
+        <img alt="My logo" src="../assets/brxttxn-trash-smaller-canvas.png" />
+      </div>
+      <div class="text-button-container">
+        <button
+          class="text-button"
+          v-for="c in categories"
+          v-on:click="selectedCategory = c.id"
+          :class="{ selected: selectedCategory === c.id }"
+          :key="c.id"
+        >{{c.label}}</button>
+      </div>
     </div>
-    <div class="text-button-container">
-      <button
-        class="text-button"
-        v-for="c in categories"
-        v-on:click="selectedCategory = c.id"
-        :class="{ selected: selectedCategory === c.id }"
-        :key="c.id"
-      >{{c.label}}</button>
-    </div>
-    <div v-if="selectedCategory === 1" class="videos-container">
-      <div class="video-wrapper" v-for="v in videoData" :key="v.id">
-        <iframe :src="v.link" frameborder="0" allow="autoplay; encrypted-media"></iframe>
-        <div class="video-data">
-          <p>{{v.title}}</p>
-          <p>{{v.year}}</p>
+    <div class="main">
+      <div v-if="selectedCategory === 1" class="videos-container">
+        <div class="video-wrapper" v-for="v in videoData" :key="v.id">
+          <iframe :src="v.link" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+          <div class="video-data">
+            <p>{{v.title}}</p>
+            <p>{{v.year}}</p>
+          </div>
+        </div>
+      </div>
+      <div v-if="selectedCategory === 2" class="projects-container">
+        <div>
+          <div class="img-container" @click="goTo('bnm')">
+            <img alt="BNM" src="../assets/bnm_logo.png" />
+            <div v-if="showComingSoon" class="cs">COMING SOON</div>
+          </div>
+          <p>Bachelor No More</p>
+        </div>
+        <div>
+          <div class="img-container nv" @click="goTo('nv')">
+            <img alt="NV" src="../assets/MASTER_logo.png" />
+          </div>
+          <p>New View</p>
         </div>
       </div>
     </div>
-    <div v-if="selectedCategory === 2" class="projects-container">
-      <div>
-        <div class="img-container" @click="goTo('bnm')">
-          <img alt="BNM" src="../assets/bnm_logo.png" />
-          <div v-if="showComingSoon" class="cs">COMING SOON</div>
-        </div>
-        <p>Bachelor No More</p>
-      </div>
-      <div>
-        <div class="img-container nv" @click="goTo('nv')">
-          <img alt="NV" src="../assets/MASTER_logo.png" />
-        </div>
-        <p>New View</p>
-      </div>
-    </div>
-    <div v-if="selectedCategory === 3" class="music-container">
-      <div v-for="p in playlists" :key="p" class="playlist-container">
-        <iframe
-          :src="`https://open.spotify.com/embed/playlist/${p}`"
-          width="300"
-          height="380"
-          frameborder="0"
-          allowtransparency="true"
-          allow="encrypted-media"
-        ></iframe>
-      </div>
-    </div>
-    <div class="footer-container">
+    <div class="footer">
       <div class="the-footer">
         <div class="footer-site-tag">
           <a href="http://www.brxttxn.com">Brxttxn</a>, Copyright &copy; 2020
         </div>
         <div class="footer-links">
+          <a @click="goTo('sp')">
+            <font-awesome-icon :icon="['fab', 'spotify']" />
+          </a>
           <a href="https://instagram.com/brxttxn">
             <font-awesome-icon :icon="['fab', 'instagram']" />
           </a>
@@ -166,107 +155,106 @@ export default {
 <style lang="scss" scoped>
 @import "../utilities/_variables.scss";
 .home {
-  overflow: hidden;
-  position: relative;
+  position:absolute;
+  width:100%;
+  height:100%;
   display: flex;
-  flex-direction: column;
-  .logo-container {
-    max-width: 400px;
-    img {
-      object-fit: cover;
-      width: 100%;
-    }
-  }
-  .img-container {
-    max-width: 400px;
-    img {
-      object-fit: cover;
-      width: 100%;
-    }
-  }
-  .text-button-container {
-    display: flex;
-    padding: 0 22px;
-    button {
-      display: block;
-      background-color: transparent;
-      color: white;
-      border: 2px solid white;
-      margin-right: 16px;
-      &:hover {
-        color: wheat;
-        cursor: pointer;
-        border: 2px solid wheat;
-      }
-      &.selected {
-        color: wheat;
-        border: 2px solid wheat;
-        border-left: 10px solid wheat;
-        pointer-events: none;
-      }
-    }
-  }
-  .videos-container {
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-    margin-bottom: 67px;
-    margin-top: 20px;
-    .video-wrapper {
-      margin: 10px;
-    }
-    .video-data {
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-  .projects-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-bottom: 67px;
-    margin-top: 20px;
-    padding: 0 20px;
-    .img-container {
-      display: table-cell;
-      height: 400px;
-      vertical-align: middle;
-      text-align: center;
-      position: relative;
-      &:hover {
-        opacity: 0.8;
-        cursor: pointer;
-      }
-      .cs {
-        position: absolute;
+  flex-direction:column;
+  .header {
+    flex: 0;
+    .logo-container {
+      max-width: 400px;
+      img {
+        object-fit: cover;
         width: 100%;
-        top: calc(50% - 7px);
-        text-align: center;
+      }
+    }
+    .img-container {
+      max-width: 400px;
+      img {
+        object-fit: cover;
+        width: 100%;
+      }
+    }
+    .text-button-container {
+      display: flex;
+      padding: 0 20px 20px;
+      button {
+        display: block;
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+        margin-right: 16px;
+        &:hover {
+          color: wheat;
+          cursor: pointer;
+          border: 2px solid wheat;
+        }
+        &.selected {
+          color: wheat;
+          border: 2px solid wheat;
+          border-left: 10px solid wheat;
+          pointer-events: none;
+        }
       }
     }
   }
-  .music-container {
-    display: flex;
-    flex-wrap: wrap;
+
+  .main {
+    flex: 1;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: 67px;
-    margin-top: 20px;
-    padding: 0 20px;
-    .playlist-container {
-      margin: 10px 20px;
+    overflow-x: hidden;
+    .videos-container {
+      display: flex;
+      flex-wrap: wrap;
+
+      margin-bottom: 67px;
+      margin-top: 0;
+      .video-wrapper {
+        margin: 10px;
+      }
+      .video-data {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .projects-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-bottom: 67px;
+      margin-top: 20px;
+      padding: 0 20px;
+      .img-container {
+        display: table-cell;
+        height: 400px;
+        vertical-align: middle;
+        text-align: center;
+        position: relative;
+        max-width: 400px;
+        img {
+          object-fit: cover;
+          width: 100%;
+        }
+        &:hover {
+          opacity: 0.8;
+          cursor: pointer;
+        }
+        .cs {
+          position: absolute;
+          width: 100%;
+          top: calc(50% - 7px);
+          text-align: center;
+        }
+      }
     }
   }
-  .footer-container {
-    position: absolute;
-    bottom: 0;
+
+  .footer {
+    flex:0;
     width: 100%;
     color: $white;
-    overflow: hidden;
 
     min-width: 320px;
     .the-footer {
@@ -279,6 +267,9 @@ export default {
         font-size: 24px;
         a {
           margin: 0 5px;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
       .footer-site-tag {
@@ -292,6 +283,7 @@ export default {
       left: 0;
       right: 0;
       z-index: 0;
+      overflow: hidden;
       img {
         width: 200px;
       }
@@ -307,6 +299,7 @@ export default {
 @media only screen and (max-width: 900px) {
   .trinket {
     display: none;
+    overflow: hidden;
   }
   .videos-container {
     justify-content: space-around;
